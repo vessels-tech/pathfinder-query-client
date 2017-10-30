@@ -1,0 +1,43 @@
+{
+  "name": "@mojaloop/pathfinder-query-client",
+  "version": "0.2.0",
+  "description": "Library for querying PathFinder DNS records.",
+  "main": "src/index.js",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mojaloop/pathfinder-query-client.git"
+  },
+  "keywords": [
+    "pathfinder",
+    "client",
+    "dns",
+    "query"
+  ],
+  "scripts": {
+    "pretest": "standard",
+    "test": "npm run test:unit | faucet",
+    "test:unit": "tape 'test/unit/**/*.test.js'",
+    "test:xunit": "tape 'test/unit/**/*.test.js' | tap-xunit",
+    "test:coverage": "istanbul cover tape -- 'test/unit/**/*.test.js'",
+    "test:coverage-check": "npm run test:coverage && istanbul check-coverage"
+  },
+  "publishConfig": {
+    "registry": "https://modusbox.jfrog.io/modusbox/api/npm/level1-npm-release"
+  },
+  "dependencies": {
+    "bluebird": "3.5.0",
+    "native-dns-packet": "0.1.1"
+  },
+  "devDependencies": {
+    "faucet": "0.0.1",
+    "istanbul": "0.4.5",
+    "pre-commit": "1.2.2",
+    "proxyquire": "1.8.0",
+    "sinon": "2.3.1",
+    "standard": "10.0.2",
+    "tap-xunit": "1.7.0",
+    "tape": "4.6.3",
+    "tapes": "4.1.0"
+  }
+}
