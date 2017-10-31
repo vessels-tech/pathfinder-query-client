@@ -4,11 +4,11 @@ A library used to query PathFinder by E.164 telephone number and retrieve record
 
 ## Installation
 You must have setup connection to the @leveloneproject npm repo on JFrog in order to install.
-> npm install @leveloneproject/pathfinder-query-client
+> npm install @mojaloop/pathfinder-query-client
 
 ## Usage
 ```
-const Query = require('@leveloneproject/pathfinder-query-client')
+const Query = require('@mojaloop/pathfinder-query-client')
 
 const phoneNumber = '+15714344668'
 
