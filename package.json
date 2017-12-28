@@ -23,7 +23,7 @@
     "test:coverage-check": "npm run test:coverage && istanbul check-coverage"
   },
   "publishConfig": {
-    "registry": "https://modusbox.jfrog.io/modusbox/api/npm/level1-npm-release"
+    "registry": "https://registry.npmjs.org/"
   },
   "dependencies": {
     "bluebird": "3.5.0",
