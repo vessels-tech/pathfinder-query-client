@@ -9,7 +9,7 @@ machine:
 
 dependencies:
   pre:
-    - echo "https://registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+    - curl -udwolla:$NPM_TOKEN "https://modusbox.jfrog.io/modusbox/api/npm/level1-npm-release/auth/leveloneproject" >> .npmrc
 
 test:
   pre:
