@@ -1,6 +1,6 @@
 {
   "name": "@mojaloop/pathfinder-query-client",
-  "version": "0.2.0",
+  "version": "2.0.0-release",
   "description": "Library for querying PathFinder DNS records.",
   "main": "src/index.js",
   "license": "Apache-2.0",
@@ -34,10 +34,10 @@
     "istanbul": "0.4.5",
     "pre-commit": "1.2.2",
     "proxyquire": "1.8.0",
-    "sinon": "2.3.1",
-    "standard": "10.0.2",
-    "tap-xunit": "1.7.0",
-    "tape": "4.6.3",
+    "sinon": "4.3.0",
+    "standard": "11.0.0",
+    "tap-xunit": "2.2.0",
+    "tape": "4.9.0",
     "tapes": "4.1.0"
   }
 }
