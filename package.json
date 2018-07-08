@@ -1,6 +1,6 @@
 {
   "name": "@mojaloop/pathfinder-query-client",
-  "version": "1.1.0-snapshot",
+  "version": "2.0.0-snapshot",
   "description": "Library for querying PathFinder DNS records.",
   "main": "src/index.js",
   "license": "Apache-2.0",
