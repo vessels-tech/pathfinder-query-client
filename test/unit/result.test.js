@@ -12,7 +12,7 @@ Test('Result', resultTest => {
   let sandbox
 
   resultTest.beforeEach(t => {
-    sandbox = Sinon.sandbox.create()
+    sandbox = Sinon.createSandbox()
     sandbox.stub(Converter, 'convertEnumDomainToE164')
     t.end()
   })

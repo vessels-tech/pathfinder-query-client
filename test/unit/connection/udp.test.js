@@ -14,7 +14,7 @@ Test('UdpConnection', udpConnectionTest => {
   let emptyData = Buffer.alloc(0)
 
   udpConnectionTest.beforeEach(t => {
-    sandbox = Sinon.sandbox.create()
+    sandbox = Sinon.createSandbox()
     sandbox.stub(Dgram, 'createSocket')
     clock = Sinon.useFakeTimers()
     t.end()

@@ -10,7 +10,7 @@ Test('DnsRequest', dnsRequestTest => {
   let sandbox
 
   dnsRequestTest.beforeEach(t => {
-    sandbox = Sinon.sandbox.create()
+    sandbox = Sinon.createSandbox()
     sandbox.stub(Packet, 'write')
     t.end()
   })

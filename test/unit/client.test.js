@@ -17,7 +17,7 @@ Test('Client', clientTest => {
   let sandbox
 
   clientTest.beforeEach(t => {
-    sandbox = Sinon.sandbox.create()
+    sandbox = Sinon.createSandbox()
     sandbox.stub(Converter, 'convertE164ToEnumDomain')
     sandbox.stub(Dns, 'NAPTR')
     sandbox.stub(Result, 'fromDnsResponse')

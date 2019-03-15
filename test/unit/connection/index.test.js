@@ -10,7 +10,7 @@ Test('DnsConnection', dnsConnectionTest => {
   let sandbox
 
   dnsConnectionTest.beforeEach(t => {
-    sandbox = Sinon.sandbox.create()
+    sandbox = Sinon.createSandbox()
     sandbox.stub(UdpConnection, 'createConnection')
     t.end()
   })
