@@ -24,10 +24,10 @@ Test('Result', resultTest => {
 
   const buildDnsResponse = (domain) => {
     return {
-      question: [ {
+      question: [{
         name: domain
-      } ],
-      answer: [ {
+      }],
+      answer: [{
         name: domain,
         type: 35,
         class: 1,
@@ -44,13 +44,13 @@ Test('Result', resultTest => {
 
   resultTest.test('fromDnsResponse should', dnsResponseTest => {
     dnsResponseTest.test('return supplied DNS response', test => {
-      let domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
-      let e164Phone = '+15551234567'
-      let dnsResponse = buildDnsResponse(domain)
+      const domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
+      const e164Phone = '+15551234567'
+      const dnsResponse = buildDnsResponse(domain)
 
       Converter.convertEnumDomainToE164.returns(e164Phone)
 
-      let result = Result.fromDnsResponse(dnsResponse)
+      const result = Result.fromDnsResponse(dnsResponse)
 
       test.equal(result.query, domain)
       test.ok(Converter.convertEnumDomainToE164.calledWith(domain))
@@ -67,9 +67,9 @@ Test('Result', resultTest => {
     })
 
     dnsResponseTest.test('handle empty question field', test => {
-      let dnsResponse = { question: [] }
+      const dnsResponse = { question: [] }
 
-      let result = Result.fromDnsResponse(dnsResponse)
+      const result = Result.fromDnsResponse(dnsResponse)
 
       test.notOk(result.query)
       test.notOk(result.tn)
@@ -77,9 +77,9 @@ Test('Result', resultTest => {
     })
 
     dnsResponseTest.test('handle missing question field', test => {
-      let dnsResponse = { }
+      const dnsResponse = { }
 
-      let result = Result.fromDnsResponse(dnsResponse)
+      const result = Result.fromDnsResponse(dnsResponse)
 
       test.notOk(result.query)
       test.notOk(result.tn)
@@ -87,30 +87,30 @@ Test('Result', resultTest => {
     })
 
     dnsResponseTest.test('handle empty answer field', test => {
-      let dnsResponse = { question: [], answer: [] }
+      const dnsResponse = { question: [], answer: [] }
 
-      let result = Result.fromDnsResponse(dnsResponse)
+      const result = Result.fromDnsResponse(dnsResponse)
 
       test.deepEqual(result.records, [])
       test.end()
     })
 
     dnsResponseTest.test('handle missing question field', test => {
-      let dnsResponse = { }
+      const dnsResponse = { }
 
-      let result = Result.fromDnsResponse(dnsResponse)
+      const result = Result.fromDnsResponse(dnsResponse)
 
       test.deepEqual(result.records, [])
       test.end()
     })
 
     dnsResponseTest.test('handle empty regexp field', test => {
-      let domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
-      let dnsResponse = buildDnsResponse(domain)
+      const domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
+      const dnsResponse = buildDnsResponse(domain)
 
       dnsResponse.answer[0].regexp = null
 
-      let result = Result.fromDnsResponse(dnsResponse)
+      const result = Result.fromDnsResponse(dnsResponse)
 
       test.ok(result.records[0].regexp)
       test.notOk(result.records[0].regexp.pattern)
@@ -119,12 +119,12 @@ Test('Result', resultTest => {
     })
 
     dnsResponseTest.test('handle regexp field missing data', test => {
-      let domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
-      let dnsResponse = buildDnsResponse(domain)
+      const domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
+      const dnsResponse = buildDnsResponse(domain)
 
       dnsResponse.answer[0].regexp = '!!'
 
-      let result = Result.fromDnsResponse(dnsResponse)
+      const result = Result.fromDnsResponse(dnsResponse)
 
       test.ok(result.records[0].regexp)
       test.notOk(result.records[0].regexp.pattern)
@@ -133,13 +133,13 @@ Test('Result', resultTest => {
     })
 
     dnsResponseTest.test('handle multiple capture groups in regexp', test => {
-      let domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
-      let dnsResponse = buildDnsResponse(domain)
+      const domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
+      const dnsResponse = buildDnsResponse(domain)
 
-      let replace = 'tel:$1-$2;npdi;spn=51589;q_stat=002'
+      const replace = 'tel:$1-$2;npdi;spn=51589;q_stat=002'
       dnsResponse.answer[0].regexp = '!^(.*)$!tel:\\1-\\2;npdi;spn=51589;q_stat=002!'
 
-      let result = Result.fromDnsResponse(dnsResponse)
+      const result = Result.fromDnsResponse(dnsResponse)
 
       test.ok(result.records[0].regexp)
       test.equal(result.records[0].regexp.replace, replace)

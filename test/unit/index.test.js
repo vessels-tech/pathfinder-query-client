@@ -26,7 +26,7 @@ Test('Index', indexTest => {
 
   indexTest.test('createClient should', createClientTest => {
     createClientTest.test('create client with supplied options', test => {
-      let opts = { address: 'localhost' }
+      const opts = { address: 'localhost' }
       Index.createClient(opts)
 
       test.ok(clientSpy.calledWithNew())

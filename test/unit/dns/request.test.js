@@ -22,13 +22,13 @@ Test('DnsRequest', dnsRequestTest => {
 
   dnsRequestTest.test('create should', createTest => {
     createTest.test('set header and question properties', test => {
-      let question = { name: '7.6.5.4.3.2.1.5.5.5.1.e164enum.net', type: 35, class: 1 }
+      const question = { name: '7.6.5.4.3.2.1.5.5.5.1.e164enum.net', type: 35, class: 1 }
 
-      let request = DnsRequest.create(question)
+      const request = DnsRequest.create(question)
 
       test.ok(request.header.id)
       test.ok(request.header.id > 0 && request.header.id <= 65535)
-      test.deepEqual(request.question, [ question ])
+      test.deepEqual(request.question, [question])
       test.end()
     })
 
@@ -37,16 +37,16 @@ Test('DnsRequest', dnsRequestTest => {
 
   dnsRequestTest.test('write should', writeTest => {
     writeTest.test('write request data to buffer', test => {
-      let baseSize = 512
-      let domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
-      let recordType = 35
+      const baseSize = 512
+      const domain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
+      const recordType = 35
 
-      let request = DnsRequest.create(domain, recordType)
+      const request = DnsRequest.create(domain, recordType)
 
-      let recordLength = 50
+      const recordLength = 50
       Packet.write.returns(recordLength)
 
-      let requestData = request.write(baseSize)
+      const requestData = request.write(baseSize)
 
       test.ok(requestData)
       test.equal(requestData.length, recordLength)

@@ -35,7 +35,7 @@ class Result {
   }
 
   _parseRegexp (regexp) {
-    let parsed = { pattern: null, replace: null }
+    const parsed = { pattern: null, replace: null }
     if (regexp) {
       const separator = regexp[0]
       const split = regexp.substring(1, regexp.length - 1).split(separator)

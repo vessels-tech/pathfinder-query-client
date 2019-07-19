@@ -9,7 +9,7 @@ const convertE164ToEnumDomain = (e164Phone, enumSuffix) => {
 
 const convertEnumDomainToE164 = (enumDomain) => {
   const split = enumDomain.split('.')
-  let suffixPos = split.findIndex(s => s.length > 1 && isNaN(s))
+  const suffixPos = split.findIndex(s => s.length > 1 && isNaN(s))
   return '+' + split.slice(0, suffixPos).reverse().join('')
 }
 
