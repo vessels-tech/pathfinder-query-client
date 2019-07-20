@@ -31,7 +31,7 @@ Test('Dns', (dnsTest) => {
 
   dnsTest.test('create record type from options', (createTest) => {
     createTest.test('assign default properties if none provided', (assert) => {
-      let record = Dns.NAPTR()
+      const record = Dns.NAPTR()
       assert.ok(record)
       assert.equal(record.type, Consts.nameToQtype('NAPTR'))
       assert.equal(record.class, Consts.NAME_TO_QCLASS.IN)
@@ -39,11 +39,11 @@ Test('Dns', (dnsTest) => {
     })
 
     createTest.test('assign additional properties to created record', (assert) => {
-      let name = 'name'
-      let address = '127.0.0.2'
-      let ttl = 600
+      const name = 'name'
+      const address = '127.0.0.2'
+      const ttl = 600
 
-      let record = Dns.NAPTR({ name: name, address: address, ttl: ttl })
+      const record = Dns.NAPTR({ name: name, address: address, ttl: ttl })
       assert.ok(record)
       assert.equal(record.type, Consts.nameToQtype('NAPTR'))
       assert.equal(record.class, Consts.NAME_TO_QCLASS.IN)
@@ -54,10 +54,10 @@ Test('Dns', (dnsTest) => {
     })
 
     createTest.test('ignore default properties if passed in', (assert) => {
-      let name = 'name'
-      let type = 'type'
+      const name = 'name'
+      const type = 'type'
 
-      let record = Dns.NAPTR({ name: name, type: type })
+      const record = Dns.NAPTR({ name: name, type: type })
       assert.ok(record)
       assert.equal(record.class, Consts.NAME_TO_QCLASS.IN)
       assert.equal(record.name, name)

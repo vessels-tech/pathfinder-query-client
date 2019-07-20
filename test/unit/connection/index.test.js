@@ -22,7 +22,7 @@ Test('DnsConnection', dnsConnectionTest => {
 
   dnsConnectionTest.test('createUdpConnection should', createUdpConnectionTest => {
     createUdpConnectionTest.test('create UDP server', test => {
-      let opts = {}
+      const opts = {}
       DnsConnection.createUdpConnection(opts)
 
       test.ok(UdpConnection.createConnection.calledOnce)

@@ -11,7 +11,7 @@ const UdpConnection = require(`${src}/connection/udp`)
 Test('UdpConnection', udpConnectionTest => {
   let clock
   let sandbox
-  let emptyData = Buffer.alloc(0)
+  const emptyData = Buffer.alloc(0)
 
   udpConnectionTest.beforeEach(t => {
     sandbox = Sinon.createSandbox()
@@ -28,9 +28,9 @@ Test('UdpConnection', udpConnectionTest => {
 
   udpConnectionTest.test('createConnection should', createConnectionTest => {
     createConnectionTest.test('create connection using provided options', test => {
-      let opts = { address: 'test.com', port: 3000, timeout: 3000 }
+      const opts = { address: 'test.com', port: 3000, timeout: 3000 }
 
-      let conn = UdpConnection.createConnection(opts)
+      const conn = UdpConnection.createConnection(opts)
 
       test.equal(conn._address, opts.address)
       test.equal(conn._port, opts.port)
@@ -43,10 +43,10 @@ Test('UdpConnection', udpConnectionTest => {
 
   udpConnectionTest.test('getBaseSize should', createConnectionTest => {
     createConnectionTest.test('return base packet size', test => {
-      let opts = { address: 'test.com', port: 3000, timeout: 3000 }
+      const opts = { address: 'test.com', port: 3000, timeout: 3000 }
 
-      let conn = UdpConnection.createConnection(opts)
-      let udpBaseSize = conn.getBaseSize()
+      const conn = UdpConnection.createConnection(opts)
+      const udpBaseSize = conn.getBaseSize()
 
       test.equal(udpBaseSize, 512)
       test.end()
@@ -57,11 +57,11 @@ Test('UdpConnection', udpConnectionTest => {
 
   udpConnectionTest.test('send should', sendTest => {
     sendTest.test('create UDP socket and bind', test => {
-      let opts = { address: 'test.com', port: 3000, timeout: 3000 }
+      const opts = { address: 'test.com', port: 3000, timeout: 3000 }
 
-      let conn = UdpConnection.createConnection(opts)
+      const conn = UdpConnection.createConnection(opts)
 
-      let udpSocket = new EventEmitter()
+      const udpSocket = new EventEmitter()
       udpSocket.bind = sandbox.spy()
 
       Dgram.createSocket.returns(udpSocket)
@@ -74,13 +74,13 @@ Test('UdpConnection', udpConnectionTest => {
     })
 
     sendTest.test('send DNS request on UDP socket listening event', test => {
-      let opts = { address: 'test.com', port: 3000, timeout: 3000 }
+      const opts = { address: 'test.com', port: 3000, timeout: 3000 }
 
-      let conn = UdpConnection.createConnection(opts)
+      const conn = UdpConnection.createConnection(opts)
 
-      let requestData = Buffer.alloc(50)
+      const requestData = Buffer.alloc(50)
 
-      let udpSocket = new EventEmitter()
+      const udpSocket = new EventEmitter()
       udpSocket.bind = sandbox.spy()
       udpSocket.send = sandbox.stub()
 
@@ -95,20 +95,20 @@ Test('UdpConnection', udpConnectionTest => {
     })
 
     sendTest.test('reject promise on socket timeout', test => {
-      let opts = { address: 'test.com', port: 3000, timeout: 3000 }
+      const opts = { address: 'test.com', port: 3000, timeout: 3000 }
 
-      let conn = UdpConnection.createConnection(opts)
+      const conn = UdpConnection.createConnection(opts)
 
-      let requestData = Buffer.alloc(50)
+      const requestData = Buffer.alloc(50)
 
-      let udpSocket = new EventEmitter()
+      const udpSocket = new EventEmitter()
       udpSocket.bind = sandbox.spy()
       udpSocket.send = sandbox.stub()
       udpSocket.close = sandbox.spy()
 
       Dgram.createSocket.returns(udpSocket)
 
-      let sendPromise = conn.send(requestData)
+      const sendPromise = conn.send(requestData)
 
       udpSocket.emit('listening')
 
@@ -131,19 +131,19 @@ Test('UdpConnection', udpConnectionTest => {
     })
 
     sendTest.test('reject promise on UDP socket error event', test => {
-      let opts = { address: 'test.com', port: 3000, timeout: 3000 }
+      const opts = { address: 'test.com', port: 3000, timeout: 3000 }
 
-      let conn = UdpConnection.createConnection(opts)
+      const conn = UdpConnection.createConnection(opts)
 
-      let udpSocket = new EventEmitter()
+      const udpSocket = new EventEmitter()
       udpSocket.bind = sandbox.spy()
       udpSocket.close = sandbox.spy()
 
       Dgram.createSocket.returns(udpSocket)
 
-      let sendPromise = conn.send(emptyData)
+      const sendPromise = conn.send(emptyData)
 
-      let socketError = new Error('Bad socket stuff')
+      const socketError = new Error('Bad socket stuff')
       udpSocket.emit('error', socketError)
 
       sendPromise
@@ -159,20 +159,20 @@ Test('UdpConnection', udpConnectionTest => {
     })
 
     sendTest.test('fulfill promise on UDP message event', test => {
-      let opts = { address: 'test.com', port: 3000, timeout: 3000 }
+      const opts = { address: 'test.com', port: 3000, timeout: 3000 }
 
-      let conn = UdpConnection.createConnection(opts)
+      const conn = UdpConnection.createConnection(opts)
 
-      let udpSocket = new EventEmitter()
+      const udpSocket = new EventEmitter()
       udpSocket.bind = sandbox.spy()
       udpSocket.close = sandbox.spy()
 
       Dgram.createSocket.returns(udpSocket)
 
-      let sendPromise = conn.send(emptyData)
+      const sendPromise = conn.send(emptyData)
 
-      let socketMessage = 'data'
-      let socketRemote = {}
+      const socketMessage = 'data'
+      const socketRemote = {}
       udpSocket.emit('message', socketMessage, socketRemote)
 
       sendPromise

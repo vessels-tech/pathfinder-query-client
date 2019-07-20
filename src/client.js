@@ -69,7 +69,7 @@ class Client {
 
   _validatePhoneNumber (phone) {
     // Validate is E.164 format.
-    let valid = /^\+?[1-9]\d{4,14}$/.test(phone)
+    const valid = /^\+?[1-9]\d{4,14}$/.test(phone)
     if (!valid) {
       throw new Errors.InvalidPhoneFormatError()
     }

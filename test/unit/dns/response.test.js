@@ -22,7 +22,7 @@ Test('DnsResponse', dnsResponseTest => {
 
   dnsResponseTest.test('create should', createTest => {
     createTest.test('create response', test => {
-      let response = new DnsResponse()
+      const response = new DnsResponse()
 
       test.ok(response)
       test.ok(DnsResponse.parse)

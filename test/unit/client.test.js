@@ -42,9 +42,9 @@ Test('Client', clientTest => {
 
   clientTest.test('constructor should', constructorTest => {
     constructorTest.test('create client using provided options', test => {
-      let opts = { address: 'test.com', port: 3000, type: 'udp', timeout: 3000, enumSuffix: 'e164.arpa' }
+      const opts = { address: 'test.com', port: 3000, type: 'udp', timeout: 3000, enumSuffix: 'e164.arpa' }
 
-      let client = createClient(opts)
+      const client = createClient(opts)
 
       test.equal(client._address, opts.address)
       test.equal(client._port, opts.port)
@@ -55,7 +55,7 @@ Test('Client', clientTest => {
     })
 
     constructorTest.test('create client using default options', test => {
-      let client = createClient()
+      const client = createClient()
 
       test.equal(client._address, 'localhost')
       test.equal(client._port, 53)
@@ -66,12 +66,12 @@ Test('Client', clientTest => {
     })
 
     constructorTest.test('create UDP connection by default', test => {
-      let opts = { address: 'test.com', port: 3000, timeout: 10000 }
-      let udpConnection = {}
+      const opts = { address: 'test.com', port: 3000, timeout: 10000 }
+      const udpConnection = {}
 
       Connection.createUdpConnection.returns(udpConnection)
 
-      let client = createClient(opts)
+      const client = createClient(opts)
 
       test.equal(client._connection, udpConnection)
       test.ok(Connection.createUdpConnection.calledWith(opts))
@@ -79,7 +79,7 @@ Test('Client', clientTest => {
     })
 
     constructorTest.test('throw error if invalid type', test => {
-      let opts = { address: 'test.com', port: 3000, type: 'tcp', timeout: 3000, enumSuffix: 'e164.arpa' }
+      const opts = { address: 'test.com', port: 3000, type: 'tcp', timeout: 3000, enumSuffix: 'e164.arpa' }
 
       try {
         createClient(opts)
@@ -100,30 +100,30 @@ Test('Client', clientTest => {
       const e164Phone = '+15551234567'
       const enumDomain = '7.6.5.4.3.2.1.5.5.5.1.e164enum.net'
 
-      let sendResponse = 'response'
-      let sendStub = sandbox.stub()
+      const sendResponse = 'response'
+      const sendStub = sandbox.stub()
       sendStub.returns(P.resolve(sendResponse))
 
       const udpBaseSize = 512
-      let udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
+      const udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
       Connection.createUdpConnection.returns(udpConnection)
 
       Converter.convertE164ToEnumDomain.returns(enumDomain)
 
-      let dnsRequestData = Buffer.alloc(0)
-      let dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
+      const dnsRequestData = Buffer.alloc(0)
+      const dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
       DnsRequest.create.returns(dnsRequest)
 
-      let naptrRecord = {}
+      const naptrRecord = {}
       Dns.NAPTR.returns(naptrRecord)
 
-      let parsedDnsResponse = buildParsedDnsResponse()
+      const parsedDnsResponse = buildParsedDnsResponse()
       DnsResponse.parse.returns(parsedDnsResponse)
 
-      let record = {}
+      const record = {}
       Result.fromDnsResponse.returns(record)
 
-      let client = createClient()
+      const client = createClient()
       client.request(e164Phone)
         .then(response => {
           test.ok(response, record)
@@ -139,7 +139,7 @@ Test('Client', clientTest => {
     })
 
     requestTest.test('throw InvalidPhoneFormatError', test => {
-      let client = createClient()
+      const client = createClient()
       client.request('15551234567888899')
         .then(response => {
           test.fail('Should have thrown error')
@@ -157,21 +157,21 @@ Test('Client', clientTest => {
     })
 
     requestTest.test('throw QueryFormatError', test => {
-      let sendStub = sandbox.stub()
+      const sendStub = sandbox.stub()
       sendStub.returns(P.resolve())
 
       const udpBaseSize = 512
-      let udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
+      const udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
       Connection.createUdpConnection.returns(udpConnection)
 
-      let dnsRequestData = Buffer.alloc(0)
-      let dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
+      const dnsRequestData = Buffer.alloc(0)
+      const dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
       DnsRequest.create.returns(dnsRequest)
 
-      let parsedDnsResponse = buildParsedDnsResponse(1)
+      const parsedDnsResponse = buildParsedDnsResponse(1)
       DnsResponse.parse.returns(parsedDnsResponse)
 
-      let client = createClient()
+      const client = createClient()
       client.request('+15551234567')
         .then(response => {
           test.fail('Should have thrown error')
@@ -189,21 +189,21 @@ Test('Client', clientTest => {
     })
 
     requestTest.test('throw ServerFailError', test => {
-      let sendStub = sandbox.stub()
+      const sendStub = sandbox.stub()
       sendStub.returns(P.resolve())
 
       const udpBaseSize = 512
-      let udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
+      const udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
       Connection.createUdpConnection.returns(udpConnection)
 
-      let dnsRequestData = Buffer.alloc(0)
-      let dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
+      const dnsRequestData = Buffer.alloc(0)
+      const dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
       DnsRequest.create.returns(dnsRequest)
 
-      let parsedDnsResponse = buildParsedDnsResponse(2)
+      const parsedDnsResponse = buildParsedDnsResponse(2)
       DnsResponse.parse.returns(parsedDnsResponse)
 
-      let client = createClient()
+      const client = createClient()
       client.request('+15551234567')
         .then(response => {
           test.fail('Should have thrown error')
@@ -221,21 +221,21 @@ Test('Client', clientTest => {
     })
 
     requestTest.test('throw InvalidPhoneNumberError', test => {
-      let sendStub = sandbox.stub()
+      const sendStub = sandbox.stub()
       sendStub.returns(P.resolve())
 
       const udpBaseSize = 512
-      let udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
+      const udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
       Connection.createUdpConnection.returns(udpConnection)
 
-      let dnsRequestData = Buffer.alloc(0)
-      let dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
+      const dnsRequestData = Buffer.alloc(0)
+      const dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
       DnsRequest.create.returns(dnsRequest)
 
-      let parsedDnsResponse = buildParsedDnsResponse(3)
+      const parsedDnsResponse = buildParsedDnsResponse(3)
       DnsResponse.parse.returns(parsedDnsResponse)
 
-      let client = createClient()
+      const client = createClient()
       client.request('+15551234567')
         .then(response => {
           test.fail('Should have thrown error')
@@ -253,21 +253,21 @@ Test('Client', clientTest => {
     })
 
     requestTest.test('throw UnauthorizedError', test => {
-      let sendStub = sandbox.stub()
+      const sendStub = sandbox.stub()
       sendStub.returns(P.resolve())
 
       const udpBaseSize = 512
-      let udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
+      const udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
       Connection.createUdpConnection.returns(udpConnection)
 
-      let dnsRequestData = Buffer.alloc(0)
-      let dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
+      const dnsRequestData = Buffer.alloc(0)
+      const dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
       DnsRequest.create.returns(dnsRequest)
 
-      let parsedDnsResponse = buildParsedDnsResponse(5)
+      const parsedDnsResponse = buildParsedDnsResponse(5)
       DnsResponse.parse.returns(parsedDnsResponse)
 
-      let client = createClient()
+      const client = createClient()
       client.request('+15551234567')
         .then(response => {
           test.fail('Should have thrown error')
@@ -285,21 +285,21 @@ Test('Client', clientTest => {
     })
 
     requestTest.test('throw UnhandledRcodeError', test => {
-      let sendStub = sandbox.stub()
+      const sendStub = sandbox.stub()
       sendStub.returns(P.resolve())
 
       const udpBaseSize = 512
-      let udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
+      const udpConnection = { send: sendStub, getBaseSize: () => udpBaseSize }
       Connection.createUdpConnection.returns(udpConnection)
 
-      let dnsRequestData = Buffer.alloc(0)
-      let dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
+      const dnsRequestData = Buffer.alloc(0)
+      const dnsRequest = { write: sandbox.stub().returns(dnsRequestData) }
       DnsRequest.create.returns(dnsRequest)
 
-      let parsedDnsResponse = buildParsedDnsResponse(4)
+      const parsedDnsResponse = buildParsedDnsResponse(4)
       DnsResponse.parse.returns(parsedDnsResponse)
 
-      let client = createClient()
+      const client = createClient()
       client.request('+15551234567')
         .then(response => {
           test.fail('Should have thrown error')

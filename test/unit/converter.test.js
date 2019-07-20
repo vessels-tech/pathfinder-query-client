@@ -10,7 +10,7 @@ Test('Converter', converterTest => {
       const e164Phone = '+15551234567'
       const enumDomain = `7.6.5.4.3.2.1.5.5.5.1.${enumSuffix}`
 
-      let converted = Converter.convertE164ToEnumDomain(e164Phone, enumSuffix)
+      const converted = Converter.convertE164ToEnumDomain(e164Phone, enumSuffix)
       test.equal(converted, enumDomain)
       test.end()
     })
@@ -20,7 +20,7 @@ Test('Converter', converterTest => {
       const e164Phone = '+1-555-123-4567'
       const enumDomain = `7.6.5.4.3.2.1.5.5.5.1.${enumSuffix}`
 
-      let converted = Converter.convertE164ToEnumDomain(e164Phone, enumSuffix)
+      const converted = Converter.convertE164ToEnumDomain(e164Phone, enumSuffix)
       test.equal(converted, enumDomain)
       test.end()
     })
@@ -33,7 +33,7 @@ Test('Converter', converterTest => {
       const e164Phone = '+15551234567'
       const enumDomain = `7.6.5.4.3.2.1.5.5.5.1.e164enum.net`
 
-      let converted = Converter.convertEnumDomainToE164(enumDomain)
+      const converted = Converter.convertEnumDomainToE164(enumDomain)
       test.equal(converted, e164Phone)
       test.end()
     })
